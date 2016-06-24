@@ -3,6 +3,7 @@ from django import forms
 class NameForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(NameForm, self).__init__(*args, **kwargs)
+        
         for field in self.fields.itervalues():
             field.widget.attrs['class'] = 'form-control'
 
@@ -16,6 +17,12 @@ class NameForm(forms.Form):
 
 
 class ContingentForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(ContingentForm, self).__init__(*args, **kwargs)
+
+        for field in self.fields.itervalues():
+            field.widget.attrs['class'] = 'form-control'
+
 	emp_id = forms.IntegerField(label='Your employee id')
 	reached_date = forms.DateField(label='Reached date')
 	return_date = forms.DateField(label='Return date')
