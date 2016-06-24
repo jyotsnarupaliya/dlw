@@ -1,6 +1,11 @@
 from django import forms
 
 class NameForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(NameForm, self).__init__(*args, **kwargs)
+        for field in self.fields.itervalues():
+            field.widget.attrs['class'] = 'form-control'
+
     emp_id = forms.IntegerField(label='Your employee id')
     s_train_no = forms.CharField(label='Start train no', max_length=5)
     s_date = forms.DateField(label='Journey start date')
