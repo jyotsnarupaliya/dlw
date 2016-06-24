@@ -1,12 +1,22 @@
 from django import forms
 
+def process_fields(fields):
+    for field in fields.itervalues():
+            field.widget.attrs['class'] = 'form-control'
+
+            if type(field) == forms.fields.DateField:
+                field.widget.attrs['placeholder'] = 'mm/dd/yy'
+
+            elif type(field) == forms.fields.TimeField:
+                field.widget.attrs['placeholder'] = 'hh:mm (24-hour format)'
+
+
 
 class ContingentForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(ContingentForm, self).__init__(*args, **kwargs)
 
-        for field in self.fields.itervalues():
-            field.widget.attrs['class'] = 'form-control'
+        process_fields(self.fields)
 
     emp_id = forms.IntegerField(label='Your employee id')
     reached_date = forms.DateField(label='Reached date')
@@ -19,8 +29,7 @@ class NameForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(NameForm, self).__init__(*args, **kwargs)
 
-        for field in self.fields.itervalues():
-            field.widget.attrs['class'] = 'form-control'
+        process_fields(self.fields)
 
     emp_id = forms.IntegerField(label='Your employee id')
     s_train_no = forms.CharField(label='Start train no', max_length=5)
