@@ -18,7 +18,7 @@ class ContingentForm(forms.Form):
 class NameForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(NameForm, self).__init__(*args, **kwargs)
-        
+
         for field in self.fields.itervalues():
             field.widget.attrs['class'] = 'form-control'
 

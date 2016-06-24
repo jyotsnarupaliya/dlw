@@ -36,7 +36,7 @@ def ta_form(request):
             division = employees[0].division
             
             final_ta = calculate(emp_id, s_date, s_time, f_date, f_time)
-
+            days = (f_date - s_date).days
             context = {
                 'emp_id': emp_id, 
                 's_train_no': s_train_no,
@@ -51,12 +51,14 @@ def ta_form(request):
                 'headq': headq,
                 'basic_pay': basic_pay,
                 'division': division,
-                'return_train_no': return_train_no
+                'return_train_no': return_train_no,
+                'days': days
                 }
 
             result_template = template.loader.get_template('ta/result.html')
             return HttpResponse(result_template.render(context, request))
     else:
+        import ipdb; ipdb.set_trace()
         form = NameForm()
     
     context = {'form': form}

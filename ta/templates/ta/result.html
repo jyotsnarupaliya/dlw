@@ -7,7 +7,7 @@
               <br>
          <div class = "panel panel-default">
            <div class = "panel-heading">
-              Travelling allowance Journel
+              <h2>Travelling allowance Journel</h2>
            </div>
            
            <div class = "panel-body">
@@ -15,6 +15,7 @@
                  <ul class = "list-group">
                   <li class = "list-group-item">
                     <div>
+                      <p><u> <b>Employee Details</b> </u></p>
                       <p> Employee id : {{ emp_id }} </p>
                       <p> Employee name : {{ emp_name }} </p>
                       <p> Branch : {{ branch }} </p>
@@ -25,13 +26,21 @@
                 </li>
                 <li class = "list-group-item">
                     <div>
-                       <p> Start of journey date : {{ s_date }} </p>
+                        <p><u> <b>Journey Details</b> </u></p>
+                        <p> Start of journey date : {{ s_date }} </p>
                         <p> Start train no : {{ s_train_no }} </p>
                         <p> Start of journey time : {{ s_time }} </p>
                         <p> End of journey date : {{ f_date }} </p>
                         <p> Return journey time : {{ f_time }} </p>
                         <p> Return train no : {{ return_train_no }} </p>
+                    </div>
+                </li>
+                <li class = "list-group-item">
+                    <div>
+                        <p><u> <b>Allowance Details</b> </u></p>
+                        <p> Basic pay : {{ basic_pay }} </p>
                         <p> Basic  ta : {{ basic_ta }} </p>
+                        <p> Total number of days : {{ days }} </p>
                         <p> Final total ta : {{ final_ta }} </p>
                     </div>
                 </li>

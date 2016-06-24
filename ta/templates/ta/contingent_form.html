@@ -1,12 +1,31 @@
-<html>
-	<body>
-		<h1> Contingent Form </h1>
+{% extends "base.html" %}
+	{% block content %}
+		<br>
+		<br>
+		<br>
 
-		<p> Please Enter the details of your local travel below </p>
-		<form action="contingent_form" method="post">
-		    {% csrf_token %}
-		    {{ form.as_p }}
-		    <input type="submit" value="Submit" />
-		</form>
-	</body>
-</html>
+		<div class='container'>
+			<h1> TA Form </h1>
+			<p> Please Enter the details of your travel below </p>
+
+			<div class='col-md-3'>
+				<form action="ta_form" method="post" role="form">
+				    {% csrf_token %}
+
+				    {% for field in form %}
+					    <div class="form-group">
+					        {{ field.errors }}
+					        <label for="emp_id">{{ field.label_tag }}</label>
+					         {{ field }}
+
+					        {% if field.help_text %}
+					        	<p class="help">{{ field.help_text|safe }}</p>
+					        {% endif %}
+					    </div>
+					{% endfor %}
+
+				    <input type="submit" value="Submit" class="btn btn-primary"/>
+				</form>
+			</div>
+		</div>
+	{% endblock %}
