@@ -58,7 +58,6 @@ def ta_form(request):
             result_template = template.loader.get_template('ta/result.html')
             return HttpResponse(result_template.render(context, request))
     else:
-        import ipdb; ipdb.set_trace()
         form = NameForm()
     
     context = {'form': form}
@@ -79,6 +78,7 @@ def contingent_form(request):
             days = (return_date - reached_date).days
             contingent = kms * rate * days
 
+            employees = employee.objects.filter(emp_no=emp_id)
             branch = employees[0].branch
             emp_name = employees[0].emp_name
             headq = employees[0].headq
