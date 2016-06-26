@@ -111,30 +111,6 @@ def contingent_form(request):
     contingent_template = template.loader.get_template('ta/contingent_form.html')
     return HttpResponse(contingent_template.render(context, request))
 
-
-def get_name(request):
-    if request.method == 'POST':
-        form = NameForm(request.POST)
-        if form.is_valid():
-            return HttpResponseRedirect('/thanks/')
-    else:
-        form = NameForm()
-
-    return render(request, 'ta_form.html', {'form': form})
-
-
-def dummy_result_view(request):
-    t = template.loader.get_template('ta/result.html')
-    context = {
-        'details': {
-            'name': 'dummy nme',
-            'train': 'dummy train',
-            'ta': 'dummy ta allowance',
-        }
-    }
-    return HttpResponse(t.render(context, request))
-
-
 def calculate(e_id, s_date, s_time, f_date, f_time):
     employees = employee.objects.filter(emp_no=e_id)
     basic_ta = employees[0].ta
