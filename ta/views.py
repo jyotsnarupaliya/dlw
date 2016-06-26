@@ -1,6 +1,6 @@
 
 from datetime import datetime, time, timedelta
-from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django import template
 
@@ -76,27 +76,11 @@ def contingent_form(request):
 
             days = (return_date - reached_date).days
 
-            employees = employee.objects.filter(emp_no=emp_id)
-            emp_name = employees[0].emp_name
-            headq = employees[0].headq
-            branch = employees[0].branch
-            basic_pay = employees[0].basic_pay
-            division = employees[0].division
+            request.session['emp_id'] = emp_id
+            request.session['days_count'] = days
 
-            context = {
-                'emp_id': emp_id,
-                'reached_date': reached_date,
-                'return_date': return_date,
-                'days': days,
-                'branch': branch,
-                'emp_name': emp_name,
-                'headq': headq,
-                'basic_pay': basic_pay,
-                'division': division,
-            }
-
-            contingent_result_template = template.loader.get_template('ta/contingent_result.html')
-            return HttpResponse(contingent_result_template.render(context, request))
+            return redirect('contingent_input')
+            #contingent_result_template = template.loader.get_template('ta/contingent_result.html')
 
     else:
         form = ContingentForm()
@@ -104,6 +88,13 @@ def contingent_form(request):
     context = {'form': form}
     contingent_template = template.loader.get_template('ta/contingent_form.html')
     return HttpResponse(contingent_template.render(context, request))
+
+
+def contingent_input_view(request):
+    emp_id = request.session['emp_id']
+    days_count = request.session['days_count']
+    return HttpResponse('hello world')
+
 
 
 def calculate(e_id, s_date, s_time, f_date, f_time):
