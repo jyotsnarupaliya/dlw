@@ -72,14 +72,10 @@ def contingent_form(request):
             emp_id = form.cleaned_data['emp_id']
             reached_date = form.cleaned_data['reached_date']
             return_date = form.cleaned_data['return_date']
-            kms = form.cleaned_data['kms']
-            rate = form.cleaned_data['rate']
 
             days = (return_date - reached_date).days
-            contingent = kms * rate * days
 
             employees = employee.objects.filter(emp_no=emp_id)
-            branch = employees[0].branch
             emp_name = employees[0].emp_name
             headq = employees[0].headq
             branch = employees[0].branch
@@ -87,18 +83,15 @@ def contingent_form(request):
             division = employees[0].division
 
             context = {
-            'emp_id': emp_id,
-            'reached_date': reached_date,
-            'return_date': return_date,
-            'kms': kms,
-            'rate': rate,
-            'days': days,
-            'contingent': contingent,
-            'branch': branch,
-            'emp_name': emp_name,
-            'headq': headq,
-            'basic_pay': basic_pay,
-            'division': division,
+                'emp_id': emp_id,
+                'reached_date': reached_date,
+                'return_date': return_date,
+                'days': days,
+                'branch': branch,
+                'emp_name': emp_name,
+                'headq': headq,
+                'basic_pay': basic_pay,
+                'division': division,
             }
 
             contingent_result_template = template.loader.get_template('ta/contingent_result.html')
