@@ -9,6 +9,7 @@ from .forms import ContingentForm
 from .models import employee
 # Create your views here.
 
+
 def index(request):
     index_template = template.loader.get_template('ta/index.html')
     return HttpResponse(index_template.render({}, request))
@@ -104,12 +105,10 @@ def contingent_form(request):
     contingent_template = template.loader.get_template('ta/contingent_form.html')
     return HttpResponse(contingent_template.render(context, request))
 
+
 def calculate(e_id, s_date, s_time, f_date, f_time):
     employees = employee.objects.filter(emp_no=e_id)
     basic_ta = employees[0].ta
-    final_ta = 0
-
-    #import ipdb; ipdb.set_trace()
 
     datetime_midnight = datetime.combine(datetime.today(), time(hour=22))
     datetime_start = datetime.combine(datetime.today(), s_time)
@@ -124,9 +123,9 @@ def calculate(e_id, s_date, s_time, f_date, f_time):
     days = (f_date - s_date).days
     final_ta = final_ta + basic_ta * days
 
-    if diff_time  <= (datetime_midnight - datetime_finish):
+    if diff_time <= (datetime_midnight - datetime_finish):
         final_ta = final_ta + basic_ta
     else:
-        final_ta = final_ta + 0.7 * basic_ta
+        final_ta +=  0.7 * basic_ta
 
     return final_ta
